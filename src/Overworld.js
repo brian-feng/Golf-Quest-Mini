@@ -10,24 +10,34 @@ class Overworld extends Phaser.Scene {
             frameHeight: 100
         })
 
-        this.load.image('tilesetImage', 'tileset.png')
+        this.load.image('tilesetImage', 'Tileset.png')
         this.load.tilemapTiledJSON('tilemapJSON', 'overworld.json')
+
+        this.load.audio('bgm', '2 PM.mp3')
     }
 
     create() {
+        this.bgm = this.sound.add('bgm')
+        this.bgm.setLoop(true)
+        this.bgm.setVolume(0.1)
+        this.bgm.play()
+        
         // velocity constant
         this.VEL = 100
 
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
+
+
         const map = this.add.tilemap('tilemapJSON')
-        const tileset = map.addTilesetImage('tileset', 'tilesetImage')
+        const tileset = map.addTilesetImage('Tileset', 'tilesetImage')
 
         const bgLayer = map.createLayer('Background', tileset, 0, 0)
-        // const terrainLayer = map.createLayer('Terrain', tileset, 0, 0)
+        const terrainLayer = map.createLayer('Terrain', tileset, 0, 0)
 
         // add slime
         // const slimeSpawn = map.findObject('Spawns', obj => obj.name == 'slimeSpawn')
-        this.slime = this.physics.add.sprite(0, 0, 'player', 0).setScale(0.4)
-        this.slime.body.setCollideWorldBounds(true)
+        this.player = this.physics.add.sprite(0, 0, 'player', 0).setScale(0.4)
+        this.player.body.setCollideWorldBounds(true)
 
         // const treeLayer = map.createLayer('Trees', tileset, 0, 0)
 
@@ -41,13 +51,16 @@ class Overworld extends Phaser.Scene {
                 end: 1
             })
         })
-        this.slime.play('jiggle')
+        this.player.play('jiggle')
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-        this.cameras.main.startFollow(this.slime, true, 0.25, 0.25)
+        this.cameras.main.startFollow(this.player, true, 0.25, 0.25)
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
-        // this.physics.add.collider(this.slime, terrainLayer)
+        terrainLayer.setCollisionByProperty({
+            collides: true
+        })
+        this.physics.add.collider(this.player, terrainLayer)
         // this.physics.add.collider(this.slime, treeLayer)
         
         // input
@@ -70,6 +83,10 @@ class Overworld extends Phaser.Scene {
         }
 
         this.direction.normalize()
-        this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.player.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        
+        if (Phaser.Input.Keyboard.JustDown(keyF)){
+            this.scene.start('fightScene');    
+        }
     }
 }

@@ -17,3 +17,4 @@ let config = {
 
 const game = new Phaser.Game(config)
 let keyEnter
+let keyF

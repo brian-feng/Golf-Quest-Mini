@@ -27,11 +27,12 @@ class Menu extends Phaser.Scene {
         box.setStrokeStyle(2, 0X44FF44, 1)
 
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyEnter)){
-          this.scene.start('fightScene');    
+          this.scene.start('overworldScene');    
         }
       }
 }
