@@ -12,7 +12,7 @@ let config = {
         }
     },
     zoom: 2,
-    scene: [ Menu, Overworld, Fight, Fight2 ]
+    scene: [ Menu, Overworld, Fight, Fight2, Fight3, Fight4]
 }
 
 const game = new Phaser.Game(config)

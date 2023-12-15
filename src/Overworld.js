@@ -83,13 +83,35 @@ class Overworld extends Phaser.Scene {
         }
         if(wins < 2){
             this.windmill2 = this.physics.add.sprite(198, 720, 'windmill', 0)
-            this.windmill2.setBodySize(100, 250)
+            this.windmill2.setBodySize(100, 200)
             this.physics.add.collider(this.windmill2, this.player, () => {
                 currentX = this.player.x
                 currentY = this.player.y
                 wins += 1
                 this.bgm.stop()
                 this.scene.start('fightScene2')
+            })
+        }
+        if(wins < 3){
+            this.windmill3 = this.physics.add.sprite(1270, 874, 'windmill', 0)
+            this.windmill3.setBodySize(100, 200)
+            this.physics.add.collider(this.windmill3, this.player, () => {
+                currentX = this.player.x
+                currentY = this.player.y
+                wins += 1
+                this.bgm.stop()
+                this.scene.start('fightScene3')
+            })
+        }
+        if(wins < 4){
+            this.boss = this.physics.add.sprite(15323, 1186, 'windmill', 0)
+            this.boss.setBodySize(100, 200)
+            this.physics.add.collider(this.boss, this.player, () => {
+                currentX = this.player.x
+                currentY = this.player.y
+                wins += 1
+                this.bgm.stop()
+                this.scene.start('fightScene4')
             })
         }
     }

@@ -5,7 +5,9 @@ class Fight2 extends Phaser.Scene {
 
     preload() {
         this.load.path = './assets/'
-        this.load.image('playerFight', 'PlayerFight.png')
+        this.load.image('playerFight', 'PlayerSwing.png')
+        this.load.image('playerSwing1', 'PlayerSwing.png')
+        this.load.image('playerSwing2', 'PlayerSwing2.png')
         this.load.image('fightBG', 'FightBG.png')
         this.load.image('windmillFight', 'WindmillFight.png')
         this.load.image('menu1', 'Menu1.png')
@@ -45,6 +47,9 @@ class Fight2 extends Phaser.Scene {
                 this.introComplete()
             }
         })
+
+        this.player2 = this.add.sprite(-100, 200, 'playerSwing').setScale(0.3).setOrigin(0, 0).setAlpha(0)
+        this.player3 = this.add.sprite(-100, 200, 'playerSwing2').setScale(0.3).setOrigin(0, 0).setAlpha(0)
 
         this.enemy = this.add.sprite(400, 50, 'windmillFight').setScale(0.3).setOrigin(0, 0)
         let enemyTween = this.tweens.add({
@@ -105,91 +110,99 @@ class Fight2 extends Phaser.Scene {
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyUp)){
-            this.menu1.setAlpha(1)    
-            this.menu2.setAlpha(0)
-            this.select = 1
-        }
-        if (Phaser.Input.Keyboard.JustDown(keyDown)){
-            this.menu2.setAlpha(1)   
-            this.menu1.setAlpha(0)
-            this.select = 2
-        }
-        if (Phaser.Input.Keyboard.JustDown(keyEnter)){
-            if(this.select == 4){
-                this.bgm.stop()
-                this.scene.start('overworldScene')   
-            }
-            else if(this.swinging){
-                let damage = Math.round((100 - (this.swingbar.y - 220))/3)
-                if(this.healthbar.width - damage < 0){
-                    this.healthbar.width = 0
-                    this.barTween.reset()
-                    this.barTween.pause()
-                    this.swingbar.setAlpha(0)
-                    this.barTween.paused = true
-                    let menuConfig = {
-                        fontFamily: 'Courier',
-                        fontSize: '24px',
-                        color: '#000000',
-                        align: 'left',
-                        padding: {
-                            top: 5,
-                            bottom: 5,
-                        },
-                        fixedWidth: 0
-                    }
-                    if(this.swings <= 5){
-                        this.add.tween({
-                            targets: this.enemy,
-                            ease: 'Linear.easeOut',
-                            loop: 0,
-                            paused: false,
-                            alpha: 0,
-                            duration: 500,
-                            onComplete: () => {
-                                this.add.text(292, 95, 'YOU WIN', menuConfig).setOrigin(0.5, 0.5)
-                                menuConfig.fontSize = '16px'
-                                this.add.text(280, 120, 'Press [Enter] to continue', menuConfig).setOrigin(0.5, 0.5)
-                            }
-                        })
-        
-                    }
-                    else{
-                        this.add.text(292, 95, 'YOU LOSE', menuConfig).setOrigin(0.5, 0.5)
-                        menuConfig.fontSize = '16px'
-                        this.add.text(280, 120, 'Press [Enter] to continue', menuConfig).setOrigin(0.5, 0.5)
-                    }
-                    this.select = 4
-                }
-                else {
-                    this.healthbar.width -= damage
-                    console.log(damage)
-                    this.select = 1
-                    this.swinging = false
-                    this.barTween.reset()
-                    this.barTween.pause()
-                    this.barTween.paused = true
-                    this.menu1.setAlpha(1)
-                    this.swingbar.setAlpha(0)
-                    this.swingbarbg.setAlpha(0)
-                    this.swings += 1
-                }
-
-            }
-            else if(this.select == 1){
-                this.swinging = true
+        if(this.introDone){
+            if (Phaser.Input.Keyboard.JustDown(keyUp)){
+                this.menu1.setAlpha(1)    
                 this.menu2.setAlpha(0)
-                this.menu1.setAlpha(0)
-                this.swingbar.setAlpha(1)
-                this.swingbarbg.setAlpha(1)
-                this.swingbar.y = 320
-                this.barTween.play()
-                this.barTween.paused = false
-                this.timer = this.time.now
+                this.select = 1
             }
-            else if(this.select == 2){
-                this.scene.start('overworldScene')
+            if (Phaser.Input.Keyboard.JustDown(keyDown)){
+                this.menu2.setAlpha(1)   
+                this.menu1.setAlpha(0)
+                this.select = 2
+            }
+            if (Phaser.Input.Keyboard.JustDown(keyEnter)){
+                if(this.select == 4){
+                    this.bgm.stop()
+                    this.menu1.destroy()
+                    this.menu2.destroy()
+                    this.scene.start('overworldScene')   
+                }
+                else if(this.swinging){
+                    let damage = Math.round((100 - (this.swingbar.y - 220))/3)
+                    if(this.healthbar.width - damage < 0){
+                        this.healthbar.width = 0
+                        this.barTween.reset()
+                        this.barTween.pause()
+                        this.swingbar.setAlpha(0)
+                        this.barTween.paused = true
+                        let menuConfig = {
+                            fontFamily: 'Courier',
+                            fontSize: '24px',
+                            color: '#000000',
+                            align: 'left',
+                            padding: {
+                                top: 5,
+                                bottom: 5,
+                            },
+                            fixedWidth: 0
+                        }
+                        if(this.swings <= 5){
+                            this.add.tween({
+                                targets: this.enemy,
+                                ease: 'Linear.easeOut',
+                                loop: 0,
+                                paused: false,
+                                alpha: 0,
+                                duration: 500,
+                                onComplete: () => {
+                                    this.add.text(292, 95, 'YOU WIN', menuConfig).setOrigin(0.5, 0.5)
+                                    menuConfig.fontSize = '16px'
+                                    this.add.text(280, 120, 'Press [Enter] to continue', menuConfig).setOrigin(0.5, 0.5)
+                                }
+                            })
+            
+                        }
+                        else{
+                            this.add.text(292, 95, 'YOU LOSE', menuConfig).setOrigin(0.5, 0.5)
+                            menuConfig.fontSize = '16px'
+                            wins -= 1
+                            this.add.text(280, 120, 'Press [Enter] to continue', menuConfig).setOrigin(0.5, 0.5)
+                        }
+                        this.select = 4
+                    }
+                    else {
+                        this.healthbar.width -= damage
+                        this.select = 1
+                        this.swinging = false
+                        this.barTween.reset()
+                        this.barTween.pause()
+                        this.barTween.paused = true
+                        this.menu1.setAlpha(1)
+                        this.swingbar.setAlpha(0)
+                        this.swingbarbg.setAlpha(0)
+                        this.swings += 1
+                    }
+
+                }
+                else if(this.select == 1){
+                    this.swinging = true
+                    this.menu2.setAlpha(0)
+                    this.menu1.setAlpha(0)
+                    this.swingbar.setAlpha(1)
+                    this.swingbarbg.setAlpha(1)
+                    this.swingbar.y = 320
+                    this.barTween.play()
+                    this.barTween.paused = false
+                    this.timer = this.time.now
+                }
+                else if(this.select == 2){
+                    this.bgm.stop()
+                    this.menu1.destroy()
+                    this.menu2.destroy()
+                    wins -= 1
+                    this.scene.start('overworldScene')
+                }
             }
         }
     }
