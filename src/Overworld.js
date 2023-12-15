@@ -5,7 +5,7 @@ class Overworld extends Phaser.Scene {
 
     preload() {
         this.load.path = './assets/'
-        this.load.spritesheet('player', 'playerOW.png', {
+        this.load.spritesheet('player', 'PlayerOW.png', {
             frameWidth: 100,
             frameHeight: 100
         })
