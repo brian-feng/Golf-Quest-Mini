@@ -9,7 +9,7 @@ class Fight4 extends Phaser.Scene {
         this.load.image('playerSwing1', 'PlayerSwing.png')
         this.load.image('playerSwing2', 'PlayerSwing2.png')
         this.load.image('fightBG', 'FightBG.png')
-        this.load.image('windmillFight', 'Boss.png')
+        this.load.image('boss', 'Boss.png')
         this.load.image('menu1', 'Menu1.png')
         this.load.image('menu2', 'Menu2.png')
         this.load.audio('fightbgm', 'Financial Obligations.mp3')
@@ -51,7 +51,7 @@ class Fight4 extends Phaser.Scene {
         this.player2 = this.add.sprite(-100, 200, 'playerSwing').setScale(0.3).setOrigin(0, 0).setAlpha(0)
         this.player3 = this.add.sprite(-100, 200, 'playerSwing2').setScale(0.3).setOrigin(0, 0).setAlpha(0)
 
-        this.enemy = this.add.sprite(400, 50, 'windmillFight').setScale(0.3).setOrigin(0, 0)
+        this.enemy = this.add.sprite(400, 50, 'boss').setScale(0.3).setOrigin(0, 0)
         let enemyTween = this.tweens.add({
             targets: this.enemy,
             ease: 'Linear.easeOut',
@@ -127,7 +127,7 @@ class Fight4 extends Phaser.Scene {
                     this.menu1.destroy()
                     this.menu2.destroy()
                     if(this.swings <= 13){
-                        this.scene.start('overworldScene')  
+                        this.scene.start('winScene')  
                     }
                     else{
                         this.scene.start('menuScene')

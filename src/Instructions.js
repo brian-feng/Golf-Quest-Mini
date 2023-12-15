@@ -9,7 +9,7 @@ class Instructions extends Phaser.Scene {
     create() {
         let menuConfig = {
             fontFamily: 'Courier',
-            fontSize: '16px',
+            fontSize: '14px',
             color: '#FFFFFF',
             align: 'center',
             padding: {
@@ -18,14 +18,15 @@ class Instructions extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        let controls = this.add.text(200, 50, 'Controls:', menuConfig).setOrigin(0.5)
-        let text = this.add.text(200, 80, 'Press ENTER to select and continue', menuConfig).setOrigin(0.5)
-        let text2 = this.add.text(200, 110, 'Press WASD to move', menuConfig).setOrigin(0.5)
-        let text3 = this.add.text(200, 140, 'Press UP and DOWN to select in menus', menuConfig).setOrigin(0.5)
-        let credits = this.add.text(200, 190, 'Credits:', menuConfig).setOrigin(0.5)
-        let text4 = this.add.text(200, 220, 'Sprites: Steven Univrse S1E19', menuConfig).setOrigin(0.5)
-        let text5 = this.add.text(200, 250, 'Music: Ludwig and Schlatts Musical', menuConfig).setOrigin(0.5)
-        let text6 = this.add.text(200, 280, 'Emporium, 2 PM // Financial Obligations', menuConfig).setOrigin(0.5)
+        let first = this.add.text(200, 25, 'Defeat holes under par and become champion!', menuConfig).setOrigin(0.5)
+        let controls = this.add.text(200, 75, 'Controls:', menuConfig).setOrigin(0.5)
+        let text = this.add.text(200, 105, 'Press ENTER to select and continue', menuConfig).setOrigin(0.5)
+        let text2 = this.add.text(200, 135, 'Press WASD to move', menuConfig).setOrigin(0.5)
+        let text3 = this.add.text(200, 165, 'Press UP and DOWN to select in menus', menuConfig).setOrigin(0.5)
+        let credits = this.add.text(200, 215, 'Credits:', menuConfig).setOrigin(0.5)
+        let text4 = this.add.text(200, 245, 'Sprites: Steven Univrse S1E19', menuConfig).setOrigin(0.5)
+        let text5 = this.add.text(200, 275, 'Music: Ludwig and Schlatts Musical', menuConfig).setOrigin(0.5)
+        let text6 = this.add.text(200, 305, 'Emporium, 2 PM // Financial Obligations', menuConfig).setOrigin(0.5)
 
 
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)

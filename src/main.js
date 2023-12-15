@@ -1,3 +1,9 @@
+/* Golf Quest Mini by Brian Feng
+ * Systems used: physics, cameras, tweens, text, tilemaps, timer
+ * 
+ * Fun feature: the swing bar gets faster for the final boss
+ */
+
 let config = {
     type: Phaser.AUTO,
     render: {
@@ -8,11 +14,11 @@ let config = {
     physics: {
         default: "arcade",
         arcade: {
-            debug: true
+            debug: false
         }
     },
     zoom: 2,
-    scene: [ Menu, Instructions, Overworld, Fight, Fight2, Fight3, Fight4]
+    scene: [ Menu, Instructions, Overworld, Fight, Fight2, Fight3, Fight4, Win]
 }
 
 const game = new Phaser.Game(config)
