@@ -8,6 +8,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+
         this.add.image(0, 0, 'menuBG').setScale(0.5).setOrigin(0, 0)
 
         let menuConfig = {

@@ -12,9 +12,14 @@ let config = {
         }
     },
     zoom: 2,
-    scene: [ Menu, Fight, Overworld ]
+    scene: [ Menu, Overworld, Fight, Fight2 ]
 }
 
 const game = new Phaser.Game(config)
 let keyEnter
 let keyF
+let keyUp
+let keyDown
+var currentX = 0
+var currentY = 0
+var wins = 0
