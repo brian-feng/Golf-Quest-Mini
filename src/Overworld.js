@@ -104,7 +104,7 @@ class Overworld extends Phaser.Scene {
             })
         }
         if(wins < 4){
-            this.boss = this.physics.add.sprite(15323, 1186, 'windmill', 0)
+            this.boss = this.physics.add.sprite(1500, 1100, 'windmill', 0)
             this.boss.setBodySize(100, 200)
             this.physics.add.collider(this.boss, this.player, () => {
                 currentX = this.player.x

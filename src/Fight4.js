@@ -9,7 +9,7 @@ class Fight4 extends Phaser.Scene {
         this.load.image('playerSwing1', 'PlayerSwing.png')
         this.load.image('playerSwing2', 'PlayerSwing2.png')
         this.load.image('fightBG', 'FightBG.png')
-        this.load.image('windmillFight', 'boss.png')
+        this.load.image('windmillFight', 'Boss.png')
         this.load.image('menu1', 'Menu1.png')
         this.load.image('menu2', 'Menu2.png')
         this.load.audio('fightbgm', 'Financial Obligations.mp3')
@@ -88,7 +88,7 @@ class Fight4 extends Phaser.Scene {
         this.stroke = this.add.text(84, 232, 'Stroke', menuConfig).setOrigin(0.5)
         this.run = this.add.text(70, 253, 'Run', menuConfig).setOrigin(0.5)
         this.bgrectangle = this.add.rectangle(215, 10, 150, 60, 0x999999).setOrigin(0, 0)
-        this.healthtext = this.add.text(290, 30, 'CHAMPION  Par 13', menuConfig).setOrigin(0.5)
+        this.healthtext = this.add.text(290, 30, 'CHAMPION Par 13', menuConfig).setOrigin(0.5)
         this.healthbg = this.add.rectangle(290, 52, 100, 20, 0x000000)
         this.healthbar = this.add.rectangle(290, 52, 100, 20, 0x00FF00)
         this.swingbarbg = this.add.rectangle(50, 220, 62, 100, 0xAAAAAA).setOrigin(0, 0).setAlpha(0)
@@ -102,7 +102,7 @@ class Fight4 extends Phaser.Scene {
             loop: -1,
             paused: true,
             y: 220,
-            duration: 1000,
+            duration: 500,
         })
         this.timer = 0
         this.swings = 0
@@ -126,10 +126,15 @@ class Fight4 extends Phaser.Scene {
                     this.bgm.stop()
                     this.menu1.destroy()
                     this.menu2.destroy()
-                    this.scene.start('overworldScene')   
+                    if(this.swings <= 13){
+                        this.scene.start('overworldScene')  
+                    }
+                    else{
+                        this.scene.start('menuScene')
+                    } 
                 }
                 else if(this.swinging){
-                    let damage = Math.round((100 - (this.swingbar.y - 220))/6)
+                    let damage = Math.round((100 - (this.swingbar.y - 220))/10)
                     if(this.healthbar.width - damage < 0){
                         this.healthbar.width = 0
                         this.barTween.reset()

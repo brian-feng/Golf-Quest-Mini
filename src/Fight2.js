@@ -126,7 +126,12 @@ class Fight2 extends Phaser.Scene {
                     this.bgm.stop()
                     this.menu1.destroy()
                     this.menu2.destroy()
-                    this.scene.start('overworldScene')   
+                    if(this.swings <= 13){
+                        this.scene.start('overworldScene')  
+                    }
+                    else{
+                        this.scene.start('menuScene')
+                    } 
                 }
                 else if(this.swinging){
                     let damage = Math.round((100 - (this.swingbar.y - 220))/3)

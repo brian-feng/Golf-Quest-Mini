@@ -8,7 +8,9 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-
+        currentX = 0
+        currentY = 0
+        wins = 0
         this.add.image(0, 0, 'menuBG').setScale(0.5).setOrigin(0, 0)
 
         let menuConfig = {
@@ -33,7 +35,7 @@ class Menu extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyEnter)){
-          this.scene.start('overworldScene');    
+          this.scene.start('instructionScene');    
         }
       }
 }
