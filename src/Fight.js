@@ -9,12 +9,8 @@ class Fight extends Phaser.Scene {
         this.load.image('playerFight', 'PlayerFight.png')
         this.load.image('fightBG', 'FightBG.png')
         this.load.image('windmillFight', 'WindmillFight.png')
-        this.load.image('menu1', 'FightMenu1.png')
-    }
-
-    introComplete() {
-        this.introDone = true
-        this.menu1.setAlpha(1)
+        this.load.image('menu1', 'Menu1.png')
+        this.load.image('menu2', 'Menu2.png')
     }
 
     create() {
@@ -25,35 +21,43 @@ class Fight extends Phaser.Scene {
         this.menu1 = this.add.sprite(0, 200, 'menu1').setScale(0.2).setOrigin(0, 0).setAlpha(0)
 
         let player = this.add.sprite(-50, 200, 'playerFight').setScale(0.3).setOrigin(0, 0)
-        let introTween = this.tweens.chain({
+        let introTween = this.tweens.add({
             targets: player,
-            ease: 'Bounce.easeOut',
-            loop: 1,
-            paused: false,
-            tweens: [
-                {
-                    x: 300,
-                    duration: 2000,
-                },
-                {
-                    onComplete: this.introComplete()
-                }
-            ],
+            ease: 'Linear.easeOut',
+            loop: 0,
+            paused: true,
+            x: 300,
+            duration: 1500,
+            onComplete: () => {
+                this.introComplete()
+            }
         })
 
         let enemy = this.add.sprite(400, 50, 'windmillFight').setScale(0.3).setOrigin(0, 0)
-        let enemyTween = this.tweens.chain({
+        let enemyTween = this.tweens.add({
             targets: enemy,
-            ease: 'Bounce.easeOut',
-            loop: 1,
-            paused: false,
-            tweens: [
-                {
-                    x: 50,
-                    duration: 2000
-                }
-            ]
+            ease: 'Linear.easeOut',
+            loop: 0,
+            paused: true,
+            x: 50,
+            duration: 1500,
+            onComplete: () => {
+                this.introComplete()
+            }
         })
 
+        introTween.paused = false
+        enemyTween.paused = false
+    }
+
+    introComplete() {
+        this.introDone = true
+        this.menu1.setAlpha(1)
+    }
+
+    update() {
+        if (Phaser.Input.Keyboard.JustDown(keyF)){
+            this.scene.start('fightScene');    
+        }
     }
 }

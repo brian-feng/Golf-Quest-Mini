@@ -21,9 +21,9 @@ class Overworld extends Phaser.Scene {
         this.bgm.setLoop(true)
         this.bgm.setVolume(0.1)
         this.bgm.play()
-        
+
         // velocity constant
-        this.VEL = 100
+        this.VEL = 200
 
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
 
